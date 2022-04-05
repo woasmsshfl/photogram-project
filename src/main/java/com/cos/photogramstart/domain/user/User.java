@@ -9,12 +9,14 @@ import javax.persistence.Id;
 import javax.persistence.PrePersist;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 // JPA(Java Persistence API) : 자바로 데이터를 DB에 영구적으로 저장할 수 있는 API를 제공해주는 기능
 // ORM : 자바에서 오브젝트를 만들면 데이터베이스에 자동으로 테이블이 만들어지는 기능.
 
+@Builder // authController에서 User에 SignupDto의 데이터를 담기 쉽게 해주는 어노테이션
 @AllArgsConstructor // 모든 생성자를 생성해주는 어노테이션
 @NoArgsConstructor // 빈 생성자를 생성해주는 어노테이션
 @Data // GETTER, SETTER 를 생성해주는 어노테이션

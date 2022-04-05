@@ -2,6 +2,7 @@ package com.cos.photogramstart.domain.user;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -28,6 +29,7 @@ public class User {
     @Id // primary Key를 설정해주는 어노테이션
     private int id;
 
+    @Column(unique = true) // username이 중복허용을 하지 않게 하는 어노테이션
     private String username;
 
     private String password;

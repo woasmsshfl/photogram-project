@@ -16,6 +16,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // TODO Auto-generated method stub
         // super.configure(http); - 기존 Security가 가지고 있는 기능 활성화/ 비활성화
 
+        http.csrf().disable(); // 시큐리티 CSRF토큰 검사를 비활성화 시키는 기능.
+
         http.authorizeRequests()
                 .antMatchers("/", "/user/**", "/image/**", "/subscribe/**", "/comment/**") // 이 주소경로로 요청이 들어오면
                 .authenticated() // 인증이 필요하고

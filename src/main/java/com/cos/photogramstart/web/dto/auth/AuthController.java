@@ -1,11 +1,19 @@
 package com.cos.photogramstart.web.dto.auth;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.validation.Valid;
+
 import com.cos.photogramstart.domain.user.User;
+import com.cos.photogramstart.handler.ex.CustomValidationException;
 import com.cos.photogramstart.service.AuthService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -44,12 +52,27 @@ public class AuthController {
     // 회원가입이 정상적으로 완료되면 auth/signin 으로 이동하게 하는게 목적이다.
     // form으로 데이터가 날아오면 key=value(x-www-form-urlencoded)
     @PostMapping("/auth/signup")
-    public String signup(SignupDto signupDto) {
-        // User <- SignupDto
-        User user = signupDto.toEntity();
-        // log.info(user.toString());
-        User userEntity = authService.회원가입(user);
-        System.out.println(userEntity);
-        return "auth/signin"; // 회원가입이 완료 되면 로그인 페이지로 이동.
+    public String signup(@Valid SignupDto signupDto, BindingResult bindingResult) {
+        // @ResponseBody 어노테이션이 붙으면 data를 리턴하게 바꿔준다.
+
+        if (bindingResult.hasErrors()) {
+            Map<String, String> errorMap = new HashMap<>();
+
+            for (FieldError error : bindingResult.getFieldErrors()) {
+                errorMap.put(error.getField(), error.getDefaultMessage());
+                System.out.println("===========================");
+                System.out.println(error.getDefaultMessage());
+                System.out.println("===========================");
+            }
+            throw new CustomValidationException("유효성 검사 실패", errorMap);
+        } else {
+            // User <- SignupDto
+            User user = signupDto.toEntity();
+            // log.info(user.toString());
+            User userEntity = authService.회원가입(user);
+            // System.out.println(userEntity);
+            return "auth/signin"; // 회원가입이 완료 되면 로그인 페이지로 이동.
+        }
+
     }
 }

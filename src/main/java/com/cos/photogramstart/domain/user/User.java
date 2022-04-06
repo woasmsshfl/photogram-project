@@ -29,17 +29,21 @@ public class User {
     @Id // primary Key를 설정해주는 어노테이션
     private int id;
 
-    @Column(unique = true) // username이 중복허용을 하지 않게 하는 어노테이션
+    // AOP : 관점지향프로그래밍
+    // 유효성 검사(전처리 후처리 개념)
+    // length : DB까지 가서 확인할 필요 없기 때문에 서버 앞단에서 전처리 된다.
+    // unique : DB를 통해서 확인할 수 있는 것이기 때문에 후처리 된다.
+    @Column(unique = true, length = 20) // username이 중복허용을 하지 않게 하는 어노테이션
     private String username;
-
+    @Column(nullable = false)
     private String password;
-
+    @Column(nullable = false)
     private String name;
 
     private String website; // 웹사이트
 
     private String bio; // 자기소개
-
+    @Column(nullable = false)
     private String email;
 
     private String phone;

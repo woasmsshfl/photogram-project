@@ -32,7 +32,7 @@
                         이후 클라이언트가 로그인 요청을 할때, 서버가 같이 보내주었던 CSRF토큰이 있는지 확인한다. 
                         즉, 서버가 정상적인 경로로 회원가입하고 로그인을 했는지 확인하는 기능이다. -->
                         <form class="login__input" action="/auth/signup" method="post"> 
-                            <input type="text" name="username" placeholder="유저네임" required="required" />
+                            <input type="text" name="username" placeholder="유저네임" required="required" maxlength="30"/>
                             <input type="password" name="password" placeholder="패스워드" required="required" />
                             <input type="email" name="email" placeholder="이메일" required="required" />
                             <input type="text" name="name" placeholder="이름" required="required" />

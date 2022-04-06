@@ -2,8 +2,6 @@ package com.cos.photogramstart.handler.ex;
 
 import java.util.Map;
 
-import javax.validation.Valid;
-
 public class CustomValidationException extends RuntimeException {
 
     // 런타임 머신이 객체를 구분할때 사용됨.

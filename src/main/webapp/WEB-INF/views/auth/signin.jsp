@@ -24,7 +24,10 @@
                         <h1><img src="/images/logo.jpg" alt=""></h1>
                         
                         <!--로그인 인풋-->
-                        <form class="login__input" >
+                        <!--로그인 정보는 보안이 지켜져야 하기 때문에 header가 아닌 body에 담아야한다-->
+                        <!-- get요청을 하면 header에 담겨서 주소창에 정보가 담겨서 보안이 허술하다.-->
+                        <!-- 따라서 method를 post로 설정해야 한다.-->
+                        <form class="login__input" action="/auth/signin" method="post">
                             <input type="text" name="username" placeholder="유저네임" required="required" />
                             <input type="password" name="password" placeholder="비밀번호" required="required" />
                             <button>로그인</button>

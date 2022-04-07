@@ -6,6 +6,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -32,10 +33,12 @@ public class UserController {
 
     // 이 경로를 일일히 찾으려면 너무 힘들기 때문에 편의성을 위해 만들어진 어노테이션이 있다.
     // @AuthenticationPrincipal 는 Authentication으로 바로 접근할 수 있게 해준다.
+    // @AuthenticationPrincipal 덕분에 principalDetails를 바로 찾아주었다
     @GetMapping("/user/{id}/update")
     public String update(@PathVariable int id,
-            // @AuthenticationPrincipal 덕분에 principalDetails를 바로 찾아주었다.
-            @AuthenticationPrincipal PrincipalDetails principalDetails) {
+            @AuthenticationPrincipal PrincipalDetails principalDetails)
+
+    {
         // 1. 어노테이션을 이용하여 바로 찾은 유저 정보(**추천**)
         System.out.println("어노테이션으로 찾은 유저 정보 : " + principalDetails.getUser());
 
@@ -43,6 +46,10 @@ public class UserController {
         // Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         // PrincipalDetails mPrincipalDetails = (PrincipalDetails) auth.getPrincipal();
         // System.out.println("직접 찾은 유저 정보 : " + mPrincipalDetails.getUser());
+
+        // 모델에 principalDetails가 가지고 있는 유저정보 담기
+        // principal : 접근주체. 인증된 사용자의 오브젝트 명으로 주로 쓰인다.
+        // model.addAttribute("principal", principalDetails.getUser());
 
         return "/user/update";
     }

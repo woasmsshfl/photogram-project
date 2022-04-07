@@ -14,14 +14,14 @@ public class UserUpdateDto {
     private String gender;
 
     // 필수가 아닌 데이터까지 Entity로 만들면 조금 위험함. 코드 수정 필요.
-    public User toEntity() { // 들어간 Dto의 데이터를 User로 리턴한다.
-        return User.builder() // User안의 bulider안에
-                .name(name)
-                .password(password) // password와
+    public User toEntity() {
+        return User.builder()
+                .name(name) // validation check 필요
+                .password(password) // validation check 필요
                 .website(website)
-                .bio(bio) // name을
+                .bio(bio)
                 .phone(phone)
                 .gender(gender)
-                .build(); // 넣는다.
+                .build();
     }
 }

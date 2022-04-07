@@ -12,6 +12,12 @@ public class CustomValidationApiException extends RuntimeException {
     private Map<String, String> errorMap;
 
     // DI
+    // message만 받게 해주는 생성자
+    public CustomValidationApiException(String message) {
+        super(message);
+    }
+
+    // message와 errorMap을 둘다 받게 해주는 생성자
     public CustomValidationApiException(String message, Map<String, String> errorMap) {
         super(message);
         // this.message = message;

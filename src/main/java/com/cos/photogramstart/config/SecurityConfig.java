@@ -27,8 +27,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable(); // 시큐리티 CSRF토큰 검사를 비활성화 시키는 기능.
 
-        http.authorizeRequests()
-                .antMatchers("/", "/user/**", "/image/**", "/subscribe/**", "/comment/**") // 이 주소경로로 요청이 들어오면
+        http.authorizeRequests() // 이 주소경로로 요청이 들어오면
+                .antMatchers("/", "/user/**", "/image/**", "/subscribe/**", "/comment/**", "/api/**")
                 .authenticated() // 인증이 필요하고
                 .anyRequest() // 인증이 필요없는 모든 요청을
                 .permitAll() // 허용한다.

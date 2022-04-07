@@ -1,15 +1,22 @@
 package com.cos.photogramstart.web.api;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.validation.Valid;
+
 import com.cos.photogramstart.config.auth.PrincipalDetails;
 import com.cos.photogramstart.domain.user.User;
+import com.cos.photogramstart.handler.ex.CustomValidationApiException;
 import com.cos.photogramstart.service.UserService;
 import com.cos.photogramstart.web.dto.CMRespDto;
 import com.cos.photogramstart.web.dto.user.UserUpdateDto;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
@@ -22,7 +29,9 @@ public class UserApiController {
 
     @PutMapping("/api/user/{id}")
     public CMRespDto<?> update(@PathVariable int id,
-            UserUpdateDto userUpdateDto,
+            @Valid UserUpdateDto userUpdateDto, // 문제가 있는지 @Valid로 검증을 하고
+            BindingResult bindingResult, // 문제 발생시 BindingResult로 받는다.
+            // BindingResult의 위치는 무조건 @Valid 바로 다음의 파라미터에 입력하여야 동작한다.
             @AuthenticationPrincipal PrincipalDetails principalDetails) {
         // rawPassword에 null이 왜 뜨지?
         // userUpdateDto 정보를 확인해 봐야겠다.
@@ -36,8 +45,23 @@ public class UserApiController {
         // 잘 실행 되는데?
         // 아, 지웠다가 다시 쓰고 저장하니까 됐다..??
         // DB에도 잘 들어갔다.
-        User userEntity = userService.회원수정(id, userUpdateDto.toEntity());
-        principalDetails.setUser(userEntity); // 세션 정보 변경
-        return new CMRespDto<>(1, "회원수정 완료", userEntity);
+
+        // 유효성 검사
+        if (bindingResult.hasErrors()) {
+            Map<String, String> errorMap = new HashMap<>();
+
+            for (FieldError error : bindingResult.getFieldErrors()) {
+                errorMap.put(error.getField(), error.getDefaultMessage());
+                System.out.println("===========================");
+                System.out.println(error.getDefaultMessage());
+                System.out.println("===========================");
+            }
+            throw new CustomValidationApiException("유효성 검사 실패", errorMap);
+        } else {
+            User userEntity = userService.회원수정(id, userUpdateDto.toEntity());
+            principalDetails.setUser(userEntity); // 세션 정보 변경
+            return new CMRespDto<>(1, "회원수정 완료", userEntity);
+        }
+
     }
 }

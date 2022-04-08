@@ -4,6 +4,7 @@ import javax.transaction.Transactional;
 
 import com.cos.photogramstart.domain.user.User;
 import com.cos.photogramstart.domain.user.UserRepository;
+import com.cos.photogramstart.handler.ex.CustomException;
 import com.cos.photogramstart.handler.ex.CustomValidationApiException;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,6 +18,15 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder; // password 암호화
+
+    // SELECT * FROM image WHERE userId = :userId
+    public User 회원프로필(int userId) {
+        User userEntity = userRepository.findById(userId).orElseThrow(() -> {
+            throw new CustomException("해당 프로필 페이지는 없는 페이지입니다.");
+        });
+
+        return userEntity;
+    }
 
     @Transactional
     public User 회원수정(int id, User user) {

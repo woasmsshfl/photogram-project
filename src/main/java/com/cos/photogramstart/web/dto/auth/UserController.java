@@ -1,21 +1,28 @@
 package com.cos.photogramstart.web.dto.auth;
 
 import com.cos.photogramstart.config.auth.PrincipalDetails;
+import com.cos.photogramstart.domain.user.User;
+import com.cos.photogramstart.service.UserService;
 
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 @Controller
 public class UserController {
 
+    private final UserService userService;
+
     // @PathVariable은 바인딩하여 데이터를 받아올 수 있게 해주는 어노테이션이다.
     @GetMapping("/user/{id}")
-    public String profile(@PathVariable int id) {
+    public String profile(@PathVariable int id, Model model) {
+        User userEntity = userService.회원프로필(id);
+        model.addAttribute("user", userEntity);
         return "/user/profile";
     }
 

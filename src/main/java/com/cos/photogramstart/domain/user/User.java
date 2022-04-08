@@ -1,13 +1,18 @@
 package com.cos.photogramstart.domain.user;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
+
+import com.cos.photogramstart.domain.image.Image;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -53,6 +58,13 @@ public class User {
     private String profileImageUrl; // 사진
 
     private String role; // 권한
+
+    // mappedBy : 연관관계의 주인이 아니기 때문에 BD에 TABLE생성하지않는다.
+    // User를 SELECT할 때 해당 User id로 등록된 iamge들을 모두 받아야한다.
+    // FetchType.LAZY = defalut 설정. image들을 안받는 설정.(getImages()함수의 image 호출시엔 가져옴)
+    // FetchType.EAGER = image들을 모두 join해서 받는다.
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    private List<Image> images; // 양방향매핑
 
     private LocalDateTime createDate;
 

@@ -6,6 +6,7 @@ import java.nio.file.Paths;
 import java.util.UUID;
 
 import com.cos.photogramstart.config.auth.PrincipalDetails;
+import com.cos.photogramstart.domain.image.Image;
 import com.cos.photogramstart.domain.image.ImageRepository;
 import com.cos.photogramstart.web.dto.image.ImageUploadDto;
 
@@ -19,6 +20,15 @@ import lombok.RequiredArgsConstructor;
 public class ImageService {
 
     private final ImageRepository imageRepository;
+
+    // 이미지 업로드 파일 경로를 서버 외부에 두는 이유
+    // 1. 서버내부의 .java 파일들은 컴파일되어 실행된다.
+    // 2. 서버가 실행될때 컴파일된 .java파일들이 target 폴더로 가서 .class로 컴파일 된다.
+    // 3. 일반적인 정적인 파일(ex.jpg...)도 taget폴더로 이동한다.(deploy : target폴더로 이동하는것)
+    // 4. .java 같은 파일은 용량이 KB단위(deploy 0.01초)인데 .jpg같은 파일은 MB단위(0.2초)이다.
+    // 5. 그렇담 서버가 실행될때 .class가 먼저 실행되고 .jpg는 아직 deploy되는 중이 되어버려서
+    // 시간차의 문제로 인해 이런 파일들을 요청,응답 하는 시간보다 deploy하는 시간이 더 길어진다.
+    // 6. 근데 서버폴더 외부에 있으면 deploy할 필요가 없기 때문에 이런 문제가 생기지 않는다.
 
     // application.yml에 지정된 C:/workspace/springbootwork/upload/ 경로로 지정해주는 어노테이션
     @Value("${file.path}")
@@ -44,5 +54,11 @@ public class ImageService {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        // DB image Table에 저장
+        Image image = imageUploadDto.toEntity(imageFileName, principalDetails.getUser());
+        Image imageEntity = imageRepository.save(image);
+
+        System.out.println(imageEntity);
     }
 }

@@ -22,7 +22,12 @@ public class ControllerExceptionHandler {
         // CMRespDto와 Script 비교
         // 1. 클라이언트에게 응답할 때에는 Script가 좋다.(클라이언트의 브라우저에게 응답)
         // 2. Ajax 통신, Android 통신을 하게 되면 CMRespDto를 쓸것이다.(개발자에게 응답)
-        return Script.back(e.getErrorMap().toString());
+        if (e.getErrorMap() == null) {
+            return Script.back(e.getMessage());
+        } else {
+            return Script.back(e.getErrorMap().toString());
+        }
+
     }
 
     // 개발자에게 응답할 Exception (Object(Data)로 응답)

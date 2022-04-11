@@ -47,7 +47,7 @@ public class UserController {
 
     {
         // 1. 어노테이션을 이용하여 바로 찾은 유저 정보(**추천**)
-        System.out.println("어노테이션으로 찾은 유저 정보 : " + principalDetails.getUser());
+        // System.out.println("어노테이션으로 찾은 유저 정보 : " + principalDetails.getUser());
 
         // 2. 직접 경로를 작성하여 찾은 유저 정보(**비추천 극혐**)
         // Authentication auth = SecurityContextHolder.getContext().getAuthentication();

@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 
 import com.cos.photogramstart.domain.image.Image;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -64,6 +65,8 @@ public class User {
     // FetchType.LAZY = defalut 설정. image들을 안받는 설정.(getImages()함수의 image 호출시엔 가져옴)
     // FetchType.EAGER = image들을 모두 join해서 받는다.
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    // @JsonIgnoreProperties를 안걸어주면 JPA 양방향 무한참조가 발생해서 오류가 난다.
+    @JsonIgnoreProperties({ "user" }) // List<image> 내부의 user데이터를 무시하고 json파싱하기
     private List<Image> images; // 양방향매핑
 
     private LocalDateTime createDate;

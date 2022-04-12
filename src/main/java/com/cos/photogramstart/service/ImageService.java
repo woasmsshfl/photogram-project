@@ -3,6 +3,7 @@ package com.cos.photogramstart.service;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.UUID;
 
 import com.cos.photogramstart.config.auth.PrincipalDetails;
@@ -12,6 +13,7 @@ import com.cos.photogramstart.web.dto.image.ImageUploadDto;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 
@@ -20,6 +22,15 @@ import lombok.RequiredArgsConstructor;
 public class ImageService {
 
     private final ImageRepository imageRepository;
+
+    // INSERT할것이 아니기 때문에 readOnly를 걸어준다.
+    // 영속성 컨텍스트는 변경 감지를 해서 더티체킹과 flush를 반영한다.
+    // 하지만 readOnly는 이 행위들을 하지 않는다.
+    @Transactional(readOnly = true)
+    public List<Image> 이미지스토리(int principalId) {
+        List<Image> images = imageRepository.mStory(principalId);
+        return images;
+    }
 
     // 이미지 업로드 파일 경로를 서버 외부에 두는 이유
     // 1. 서버내부의 .java 파일들은 컴파일되어 실행된다.

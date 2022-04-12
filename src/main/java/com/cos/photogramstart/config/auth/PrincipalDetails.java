@@ -46,7 +46,7 @@ public class PrincipalDetails implements UserDetails {
 
     // 아래 기술들은 return이 true일때만 정상적으로 로그인이 된다.
     @Override
-    public boolean isAccountNonExpired() { // 계정이 만료되었는가?
+    public boolean isAccountNonExpired() { // 계정이 만료되지 않았는가?
         return true;
     }
 

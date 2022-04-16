@@ -1,12 +1,16 @@
 package com.cos.photogramstart.web.dto.auth;
 
+import java.util.List;
+
 import com.cos.photogramstart.config.auth.PrincipalDetails;
+import com.cos.photogramstart.domain.image.Image;
 import com.cos.photogramstart.handler.ex.CustomValidationException;
 import com.cos.photogramstart.service.ImageService;
 import com.cos.photogramstart.web.dto.image.ImageUploadDto;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -23,8 +27,16 @@ public class ImageController {
         return "/image/story";
     }
 
+    // 인기페이지는 ajax를 사용할 것이 아니라서 그냥 controller를 사용한다.
+    // api controller는 데이터를 리턴하는 서버.
+    // api를 구현하는 경우는 브라우저에서 요청하는게 아닐때 사용한다.
     @GetMapping("/image/popular")
-    public String popular() {
+    public String popular(Model model) {
+
+        List<Image> images = imageService.인기사진();
+
+        model.addAttribute("images", images);
+
         return "/image/popular";
     }
 

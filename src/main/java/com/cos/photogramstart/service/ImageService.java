@@ -25,6 +25,11 @@ public class ImageService {
 
     private final ImageRepository imageRepository;
 
+    @Transactional(readOnly = true)
+    public List<Image> 인기사진() {
+        return imageRepository.mPopular();
+    }
+
     // INSERT할것이 아니기 때문에 readOnly를 걸어준다.
     // 영속성 컨텍스트는 변경 감지를 해서 더티체킹과 flush를 반영한다.
     // 하지만 readOnly는 이 행위들을 하지 않는다.

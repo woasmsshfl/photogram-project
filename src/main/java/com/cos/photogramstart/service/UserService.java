@@ -40,6 +40,11 @@ public class UserService {
         dto.setSubscribeState(subscribeState == 1);
         dto.setSubscribeCount(subscribeCount);
 
+        // forEach를 사용하여 좋아요카운트까지 받아오는 방법.
+        userEntity.getImages().forEach((image) -> {
+            image.setLikeCount(image.getLikes().size());
+        });
+
         return dto;
     }
 

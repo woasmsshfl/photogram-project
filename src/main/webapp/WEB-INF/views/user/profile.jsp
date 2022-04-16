@@ -81,7 +81,9 @@ pageEncoding="UTF-8"%>
                                 <a href=""> <img src="/upload/${image.postImageUrl}" />
                                 </a>
                                 <div class="comment">
-                                    <a href="#" class=""> <i class="fas fa-heart"></i><span>0</span>
+                                    <!-- 프론트 단에서 계산하는것은 안좋다. 서버에서 계산해서 받아오는것이 더 좋은 방법.-->
+                                    <!-- <a href="#" class=""> <i class="fas fa-heart"></i><span>${image.likes.size()}</span> -->
+                                    <a href="#" class=""> <i class="fas fa-heart"></i><span>${image.likeCount}</span>
                                     </a>
                                 </div>
                             </div>

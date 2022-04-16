@@ -58,7 +58,8 @@ public class Image {
     @Transient
     private int likeCount;
 
-    // 이미지 댓글 업데이트 예정
+    // 이미지 댓글
+    private String comment;
 
     private LocalDateTime createDate;
 

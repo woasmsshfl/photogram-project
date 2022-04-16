@@ -31,6 +31,21 @@ public class ImageService {
     @Transactional(readOnly = true)
     public Page<Image> 이미지스토리(int principalId, Pageable pageable) {
         Page<Image> images = imageRepository.mStory(principalId, pageable);
+
+        // 유저가 로그인했을 때, 로그인한 유저가 구독중인 유저의 image를 for문으로 들고온다.
+        // 들고온 image에는 likes 정보를 for문을 통해서 담는다.
+        // images에 좋아요 상태를 담아야 한다.
+        images.forEach((image) -> {
+            // image의 likeCount에 like의 크기를 담는다.
+            image.setLikeCount(image.getLikes().size());
+
+            image.getLikes().forEach((like) -> {
+                // 해당 이미지에 like한 유저를 찾아서 login한 유저가 like한 것인지를 비교해야 한다.
+                if (like.getUser().getId() == principalId) {
+                    image.setLikeState(true);
+                }
+            });
+        });
         return images;
     }
 

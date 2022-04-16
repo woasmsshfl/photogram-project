@@ -97,7 +97,17 @@ function toggleSubscribeModal(obj) {
 }
 
 // (4) 유저 프로파일 사진 변경 (완)
-function profileImageUpload() {
+function profileImageUpload(pageUserId, principalId) {
+
+    // data가 잘 받아와지는지 확인
+    // console.log("pageUserId", pageUserId);
+    // console.log("principalId", principalId);
+
+    if (pageUserId != principalId) {
+        alert("권한이 없습니다.");
+        return;
+    }
+
     $("#userProfileImageInput").click();
 
     $("#userProfileImageInput").on("change", (e) => {
@@ -108,12 +118,39 @@ function profileImageUpload() {
             return;
         }
 
-        // 사진 전송 성공시 이미지 변경
-        let reader = new FileReader();
-        reader.onload = (e) => {
-            $("#userProfileImage").attr("src", e.target.result);
-        }
-        reader.readAsDataURL(f); // 이 코드 실행시 reader.onload 실행됨.
+        // 서버에 이미지를 전송
+        let profileImageForm = $("#userProfileImageForm")[0];
+        console.log(profileImageForm);
+
+
+        // form데이터를 전송하려면 FormData 객체로 받아야 한다.
+        // FormData 객체를 이용하면 form태그의 필드와 그 값을 나타내는 일련의 key/value를 담을 수 있다.
+        let formData = new FormData(profileImageForm);
+
+        $.ajax({
+            type: "put",
+            url: `/api/user/${principalId}/profileImageUrl`,
+            data: formData,
+            // contentType을 따로 지정하지 않으면 자동으로 x-www-form-urlencoded로 파싱된다.
+            contentType: false, // false로 지정하여 파싱을 방지해야 한다.
+            // processData를 따로 지정하지 않으면 contentType이 false일때 자동으로 QueryString으로 설정된다.
+            processData: false, // false로 지정하여 QueryString 설정을 방지한다.
+            enctype: "multipart/form-data",
+            dataType: "json"
+
+        }).done(res => {
+            // 사진 전송 성공시 이미지 변경
+            let reader = new FileReader();
+            reader.onload = (e) => {
+                $("#userProfileImage").attr("src", e.target.result);
+            }
+            reader.readAsDataURL(f); // 이 코드 실행시 reader.onload 실행됨.
+
+        }).fail(error => {
+            console.log("오류", error);
+        });
+
+
     });
 }
 

@@ -2,7 +2,7 @@
 function update(userId, event) {
     event.preventDefault(); // form태그의 Action 진행을 막는 함수.
 
-    let data = $("#profileUpdate").serialize();
+    let data = $("#profileUpdate").serialize(); // key/value값을 던질때 사용.
 
     console.log(data);
 

@@ -34,17 +34,17 @@ public class SubscribeService {
 		sb.append("ON u.id = s.toUserId ");
 		sb.append("WHERE s.fromUserId = ?"); // 세미콜론 첨부하면 안됨
 		
-		// 1.물음표 principalId
-		// 2.물음표 principalId
-		// 3.물음표 pageUserId
-		
-		// 쿼리 완성
+		// 1. 첫번째 물음표 = 로그인한 유저의 id (principalId)
+		// 2. 두번째 물음표 = 로그인한 유저의 id (principalId)
+		// 3. 마지막 물음표 = 페이지 주인 유저의 id (pageUserId)
+
+		// 쿼리 완성 부분 // QLRM 라이브러리가 필요하다. Dto에 DB결과를 매핑하기 위해서다.
 		Query query = em.createNativeQuery(sb.toString())
 				.setParameter(1, principalId)
 				.setParameter(2, principalId)
 				.setParameter(3, pageUserId);
 		
-		// 쿼리 실행 (qlrm 라이브러리 필요 = DTO에 DB결과를 매핑하기 위해서)
+		// 쿼리 실행 부분 // (qlrm 라이브러리 필요 = DTO에 DB결과를 매핑하기 위해서)
 		JpaResultMapper result = new JpaResultMapper();
 		List<SubscribeDto> subscribeDtos =  result.list(query, SubscribeDto.class);
 		

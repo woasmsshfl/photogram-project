@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 public class ImageUploadDto {
 	
-	private MultipartFile file;
+	private MultipartFile file; // MultipartFile는 파일을 받을수 있는 타입이다.
 	private String caption;
 	
 	public Image toEntity(String postImageUrl, User user) {

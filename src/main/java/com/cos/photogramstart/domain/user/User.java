@@ -20,45 +20,62 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-// JPA - Java Persistence API (자바로 데이터를 영구적으로 저장(DB)할 수 있는 API를 제공)
+// JPA(Java Persistence API) : 자바로 데이터를 DB에 영구적으로 저장할 수 있는 API를 제공해주는 기능
+// ORM : 자바에서 오브젝트를 만들면 데이터베이스에 자동으로 테이블이 만들어지는 기능.
 
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
-@Entity // 디비에 테이블을 생성
+@Builder // authController에서 User에 SignupDto의 데이터를 담기 쉽게 해주는 어노테이션
+@AllArgsConstructor // 모든 생성자를 생성해주는 어노테이션
+@NoArgsConstructor // 빈 생성자를 생성해주는 어노테이션
+@Data // GETTER, SETTER 를 생성해주는 어노테이션
+@Entity // DB에 TABLE 생성해주는 어노테이션
 public class User {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY) // 번호 증가 전략이 데이터베이스를 따라간다.
+
+	@Id // primary Key를 설정해주는 어노테이션
+	// 번호 증가 전략이 데이터베이스를 따라가게 해주는 어노테이션
+	@GeneratedValue(strategy = GenerationType.IDENTITY) 
 	private int id;
 	
-	@Column(length = 100,  unique = true) // OAuth2 로그인을 위해 칼럼 늘리기
-	private String username; 
+	// AOP : 관점지향프로그래밍
+	// 유효성 검사(전처리 후처리 개념)
+	// length : DB까지 가서 확인할 필요 없기 때문에 서버 앞단에서 전처리 된다.
+	// unique : DB를 통해서 확인할 수 있는 것이기 때문에 후처리 된다.
+	// OAuth2 로그인을 위한 column 사이즈 늘리기. (length = 20->100)
+	@Column(unique = true, length = 100) // username이 중복허용을 하지 않게 하는 어노테이션
+	private String username;
+	
 	@Column(nullable = false)
 	private String password;
+
 	@Column(nullable = false)
 	private String name;
+
 	private String website; // 웹 사이트
+
 	private String bio; // 자기 소개
+
 	@Column(nullable = false)
 	private String email;
+
 	private String phone;
+
 	private String gender;
 	
 	private String profileImageUrl; // 사진
+
 	private String role; // 권한
 	
-	 // 나는 연관관계의 주인이 아니다. 그러므로 테이블에 칼럼을 만들지마.
-	// User를 Select할 때 해당 User id로 등록된 image들을 다 가져와
-	// Lazy = User를 Select할 때 해당 User id로 등록된 image들을 가져오지마 - 대신 getImages() 함수의 image들이 호출될 때 가져와!!
-	// Eager = User를 Select할 때 해당 User id로 등록된 image들을 전부 Join해서 가져와!!
+	// mappedBy : 연관관계의 주인이 아니기 때문에 BD에 Column을 생성하지않는다.
+	// User를 SELECT할 때 해당 User id로 등록된 iamge들을 모두 받아야한다.
+	// FetchType.LAZY = defalut 설정. image들을 안받는 설정.(getImages()함수의 image 호출시엔 가져옴)
+	// FetchType.EAGER = image들을 모두 join해서 받는다.
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-	@JsonIgnoreProperties({"user"})
+	// @JsonIgnoreProperties를 안걸어주면 JPA 양방향 무한참조가 발생해서 오류가 난다.
+	@JsonIgnoreProperties({"user"}) // List<image> 내부의 user데이터를 무시하고 json파싱하기
 	private List<Image> images; // 양방향 매핑
 	
 	private LocalDateTime createDate;
 	
-	@PrePersist // 디비에 INSERT 되기 직전에 실행
+	@PrePersist // DB에 INSERT 되기 직전에 실행되어 현재시간을 입력한다.
 	public void createDate() {
 		this.createDate = LocalDateTime.now();
 	}

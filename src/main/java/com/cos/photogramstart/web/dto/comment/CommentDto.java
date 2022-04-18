@@ -5,14 +5,18 @@ import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 
-// NotNull = Null값 체크
-// NotEmpty = 빈값이거나 null 체크
-// NotBlank = 빈값이거나 null 체크 그리고 빈 공백(스페이스)까지
+
 
 @Data
 public class CommentDto {
+
+	// NotNull = null 을 허용하지 않음
+	// NotEmpty = null, 공백 을 허용하지 않음
+	// NotBlank = null, 공백, " "(스페이스바) 를 허용하지 않음
+
 	@NotBlank // 빈값이거나 null 체크 그리고 빈 공백까지
 	private String content;
+	
 	@NotNull // null 체크
 	private Integer imageId;
 	

@@ -39,11 +39,13 @@ public class ControllerExceptionHandler {
     // 개발자에게 응답할 Exception (Object(Data)로 응답)
     @ExceptionHandler(CustomValidationApiException.class) // RuntimeException이 발생하는 모든 데이터를 모아줌.
     public ResponseEntity<?> validationApiException(CustomValidationApiException e) {
-        return new ResponseEntity<>(new CMRespDto<>(-1, e.getMessage(), e.getErrorMap()), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(
+                new CMRespDto<>(-1, e.getMessage(), e.getErrorMap()), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(CustomApiException.class)
     public ResponseEntity<?> apiException(CustomApiException e) { // RuntimeException이 발생하는 모든 데이터를 모아줌.
-        return new ResponseEntity<>(new CMRespDto<>(-1, e.getMessage(), null), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(
+                new CMRespDto<>(-1, e.getMessage(), null), HttpStatus.BAD_REQUEST);
     }
 }

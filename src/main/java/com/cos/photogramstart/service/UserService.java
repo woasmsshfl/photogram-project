@@ -27,20 +27,26 @@ public class UserService {
 
 	private final UserRepository userRepository;
 	private final SubscribeRepository subscribeRepository;
-	private final BCryptPasswordEncoder bCryptPasswordEncoder;
+	private final BCryptPasswordEncoder bCryptPasswordEncoder; // password 암호화
 	
 	@Value("${file.path}")
 	private String uploadFolder;
 	
 	@Transactional
 	public User 회원프로필사진변경(int principalId, MultipartFile profileImageFile) {
+
 		UUID uuid = UUID.randomUUID(); // uuid
-		String imageFileName = uuid+"_"+profileImageFile.getOriginalFilename(); // 1.jpg
-		System.out.println("이미지 파일이름 : "+imageFileName);
+
+		// UUID가 유일성을 보장해주지만 수십억분의1 확률로 중복이 생길수가 있다.
+		// 따라서 서버에 저장되는 file의 이름에 uuid를 더해준다면 그 확률이 더더욱 낮아지게된다.
+		String imageFileName = uuid + "_" + profileImageFile.getOriginalFilename(); // 1.jpg
 		
+		System.out.println("이미지 파일이름 : " + imageFileName);
+		
+		// image file을 저장할 경로와 파일명을 imageFilePath에 담기.
 		Path imageFilePath = Paths.get(uploadFolder+imageFileName);
 		
-		// 통신, I/O -> 예외가 발생할 수 있다.
+		// 통신, IO가 발생할 때 예외가 발생할 수 있기 때문에 try-catch로 묶어주어야 한다.
 		try {
 			Files.write(imageFilePath, profileImageFile.getBytes());
 		} catch (Exception e) {
@@ -77,7 +83,7 @@ public class UserService {
 		dto.setSubscribeState(subscribeState == 1);
 		dto.setSubscribeCount(subscribeCount);
 		
-		// 좋아요 카운트 추가하기
+		// forEach를 사용하여 좋아요카운트까지 받아오는 방법.
 		userEntity.getImages().forEach((image)->{
 			image.setLikeCount(image.getLikes().size());
 		});
@@ -88,13 +94,17 @@ public class UserService {
 	
 	@Transactional
 	public User 회원수정(int id, User user) {
-		// 1. 영속화
-		// 1. 무조건 찾았다. 걱정마 get() 2. 못찾았어 익섹션 발동시킬께 orElseThrow()
+
+		// 1. 영속화 하기
+		// get() : 데이터를 무조건 찾았다. 신경쓰지마라.
+		// orElseThrow() : 데이터를 못찾았으니 Exception을 발동시키겠다.
+		// User userEntity = userRepository.findById(id).get();
 		User userEntity = userRepository.findById(id).orElseThrow(() -> { return new CustomValidationApiException("찾을 수 없는 id입니다.");});
 
 		// 2. 영속화된 오브젝트를 수정 - 더티체킹 (업데이트 완료)
 		userEntity.setName(user.getName());
 		
+		// userEntity.setPassword(user.getPassword());
 		String rawPassword = user.getPassword();
 		String encPassword = bCryptPasswordEncoder.encode(rawPassword);
 		
@@ -104,7 +114,7 @@ public class UserService {
 		userEntity.setPhone(user.getPhone());
 		userEntity.setGender(user.getGender());
 		return userEntity;
-	} // 더티체킹이 일어나서 업데이트가 완료됨.
+	} // - 더티체킹(업데이트 완료)
 	
 
 }

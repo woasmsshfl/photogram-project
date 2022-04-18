@@ -39,5 +39,16 @@ spring:
       name: test
       password: 1234
 
-file:
-  path: C:/workspace/springbootwork/upload/
+    # OpenAuth 페이스북으로 로그인하기 기능 추가
+    oauth2:
+      client:
+        registration:
+          facebook:
+            client-id: 494803932325973
+            client-secret: 024fa47fb99f6a23d6aabe999d688026
+            scope:
+              - public_profile
+              - email
+
+  file:
+    path: C:/workspace/springbootwork/upload/

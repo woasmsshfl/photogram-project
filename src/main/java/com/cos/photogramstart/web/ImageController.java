@@ -1,4 +1,4 @@
-package com.cos.photogramstart.web.dto.auth;
+package com.cos.photogramstart.web;
 
 import java.util.List;
 
@@ -49,6 +49,7 @@ public class ImageController {
     public String imageUpload(ImageUploadDto imageUploadDto,
             @AuthenticationPrincipal PrincipalDetails principalDetails) {
 
+        // 코드가 같은 공통기능 처리 부분이 아니기 때문에 ValidationAdvice에서 컨트롤 하지 못한다.
         if (imageUploadDto.getFile().isEmpty()) {
             throw new CustomValidationException("이미지가 첨부되지 않았습니다.", null);
         } else {

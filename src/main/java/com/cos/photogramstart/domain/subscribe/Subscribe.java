@@ -37,7 +37,7 @@ public class Subscribe {// 구독을 위한 중간테이블 생성
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @JoinColumn(name = "fromUserId") // 이렇게 컬럼명 만들어! 니 맘대로 만들지 말고!!
+    @JoinColumn(name = "fromUserId") // DB에 생성 될 컬럼명 강제 지정
     @ManyToOne
     private User fromUser;
 

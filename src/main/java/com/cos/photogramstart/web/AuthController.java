@@ -1,4 +1,4 @@
-package com.cos.photogramstart.web.dto.auth;
+package com.cos.photogramstart.web;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import com.cos.photogramstart.domain.user.User;
 import com.cos.photogramstart.handler.ex.CustomValidationException;
 import com.cos.photogramstart.service.AuthService;
+import com.cos.photogramstart.web.dto.auth.SignupDto;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,24 +56,12 @@ public class AuthController {
     public String signup(@Valid SignupDto signupDto, BindingResult bindingResult) {
         // @ResponseBody 어노테이션이 붙으면 data를 리턴하게 바꿔준다.
 
-        if (bindingResult.hasErrors()) {
-            Map<String, String> errorMap = new HashMap<>();
-
-            for (FieldError error : bindingResult.getFieldErrors()) {
-                errorMap.put(error.getField(), error.getDefaultMessage());
-                // System.out.println("===========================");
-                // System.out.println(error.getDefaultMessage());
-                // System.out.println("===========================");
-            }
-            throw new CustomValidationException("유효성 검사 실패", errorMap);
-        } else {
-            // User <- SignupDto
-            User user = signupDto.toEntity();
-            // log.info(user.toString());
-            User userEntity = authService.회원가입(user);
-            // System.out.println(userEntity);
-            return "auth/signin"; // 회원가입이 완료 되면 로그인 페이지로 이동.
-        }
+        // User <- SignupDto
+        User user = signupDto.toEntity();
+        // log.info(user.toString());
+        authService.회원가입(user);
+        // System.out.println(userEntity);
+        return "auth/signin"; // 회원가입이 완료 되면 로그인 페이지로 이동.
 
     }
 }

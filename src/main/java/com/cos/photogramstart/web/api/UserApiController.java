@@ -75,23 +75,10 @@ public class UserApiController {
         // 아, 지웠다가 다시 쓰고 저장하니까 됐다..??
         // DB에도 잘 들어갔다.
 
-        // 유효성 검사
-        if (bindingResult.hasErrors()) {
-            Map<String, String> errorMap = new HashMap<>();
-
-            for (FieldError error : bindingResult.getFieldErrors()) {
-                errorMap.put(error.getField(), error.getDefaultMessage());
-                // System.out.println("===========================");
-                // System.out.println(error.getDefaultMessage());
-                // System.out.println("===========================");
-            }
-            throw new CustomValidationApiException("유효성 검사 실패", errorMap);
-        } else {
-            User userEntity = userService.회원수정(id, userUpdateDto.toEntity());
-            principalDetails.setUser(userEntity); // 세션 정보 변경
-            // 응답시에 userEntity의 모든 Getter함수가 호출되고 JSON으로 파싱하여 응답한다.
-            return new CMRespDto<>(1, "회원수정 완료", userEntity);
-        }
+        User userEntity = userService.회원수정(id, userUpdateDto.toEntity());
+        principalDetails.setUser(userEntity); // 세션 정보 변경
+        // 응답시에 userEntity의 모든 Getter함수가 호출되고 JSON으로 파싱하여 응답한다.
+        return new CMRespDto<>(1, "회원수정 완료", userEntity);
 
     }
 }

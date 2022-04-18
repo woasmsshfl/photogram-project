@@ -15,18 +15,15 @@ let principalId = $("#principalId").val();
 let page = 0;
 
 function storyLoad() {
-
     $.ajax({
         url: `/api/image?page=${page}`,
         dataType: "json"
     }).done(res => {
-        console.log(res);
-
+        //console.log(res);
         res.data.content.forEach((image) => {
             let storyItem = getStoryItem(image);
             $("#storyList").append(storyItem);
         });
-
     }).fail(error => {
         console.log("오류", error);
     });
@@ -114,7 +111,7 @@ $(window).scroll(() => {
 
     // 페이지의 끝을 알려주기 위해 scrollTop과 문서높이-윈도우높이의 값이 같은지 비교한다.
     let checkNum = $(window).scrollTop() - ($(document).height() - $(window).height());
-    console.log(checkNum);
+    // console.log(checkNum);
 
     if (checkNum < 1 && checkNum > -1) {
         page++;
@@ -203,22 +200,15 @@ function addComment(imageId) {
         let comment = res.data;
 
         let content = `
-		<div class="sl__item__contents__comment" id="storyCommentItem-${comment.id}"> 
+		  <div class="sl__item__contents__comment" id="storyCommentItem-${comment.id}"> 
 		    <p>
-		        <b>${comment.user.username} :</b>
-		        ${comment.content}
+		      <b>${comment.user.username} :</b>
+		      ${comment.content}
 		    </p>
-
-		    <button onclick="deleteComment(${comment.id})">
-                <i class="fas fa-times"></i>
-            </button>
-
-            
+		    <button onclick="deleteComment(${comment.id})"><i class="fas fa-times"></i></button>
 		  </div>
 		`;
-
         commentList.prepend(content);
-
     }).fail(error => {
         console.log("오류", error.responseJSON.data.content);
         alert(error.responseJSON.data.content);
@@ -229,19 +219,13 @@ function addComment(imageId) {
 
 // (5) 댓글 삭제
 function deleteComment(commentId) {
-
     $.ajax({
-
         type: "delete",
         url: `/api/comment/${commentId}`,
         dataType: "json"
-
     }).done(res => {
-
         console.log("성공", res);
-
         $(`#storyCommentItem-${commentId}`).remove();
-
     }).fail(error => {
         console.log("오류", error);
     });

@@ -41,14 +41,17 @@ public class User {
     // unique : DB를 통해서 확인할 수 있는 것이기 때문에 후처리 된다.
     @Column(unique = true, length = 20) // username이 중복허용을 하지 않게 하는 어노테이션
     private String username;
+
     @Column(nullable = false)
     private String password;
+
     @Column(nullable = false)
     private String name;
 
     private String website; // 웹사이트
 
     private String bio; // 자기소개
+
     @Column(nullable = false)
     private String email;
 
@@ -60,11 +63,11 @@ public class User {
 
     private String role; // 권한
 
-    // mappedBy : 연관관계의 주인이 아니기 때문에 BD에 TABLE생성하지않는다.
+    // mappedBy : 연관관계의 주인이 아니기 때문에 BD에 Column을 생성하지않는다.
     // User를 SELECT할 때 해당 User id로 등록된 iamge들을 모두 받아야한다.
     // FetchType.LAZY = defalut 설정. image들을 안받는 설정.(getImages()함수의 image 호출시엔 가져옴)
     // FetchType.EAGER = image들을 모두 join해서 받는다.
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     // @JsonIgnoreProperties를 안걸어주면 JPA 양방향 무한참조가 발생해서 오류가 난다.
     @JsonIgnoreProperties({ "user" }) // List<image> 내부의 user데이터를 무시하고 json파싱하기
     private List<Image> images; // 양방향매핑
@@ -75,4 +78,13 @@ public class User {
     public void createDate() {
         this.createDate = LocalDateTime.now();
     }
+
+    @Override
+    public String toString() {
+        return "User [id=" + id + ", username=" + username + ", password=" + password + ", name=" + name + ", website="
+                + website + ", bio=" + bio + ", email=" + email + ", phone=" + phone + ", gender=" + gender
+                + ", profileImageUrl=" + profileImageUrl + ", role=" + role + ", createDate="
+                + createDate + "]";
+    }
+
 }

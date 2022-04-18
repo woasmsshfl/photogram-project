@@ -1,4 +1,4 @@
-package com.cos.photogramstart.web.dto.auth;
+package com.cos.photogramstart.web;
 
 import com.cos.photogramstart.config.auth.PrincipalDetails;
 import com.cos.photogramstart.service.UserService;

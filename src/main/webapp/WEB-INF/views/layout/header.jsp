@@ -36,6 +36,10 @@
 
             <body>
 
+                <!-- principalId 담는곳 -->
+                <input type="hidden" id="principalId" value="${principal.user.id}">
+                <!-- principalId 담는곳 끝 -->
+
                 <header class="header">
                     <div class="container">
                         <a href="/" class="logo">

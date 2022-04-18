@@ -2,22 +2,30 @@ package com.cos.photogramstart.config.auth;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import com.cos.photogramstart.domain.user.User;
 
 import lombok.Data;
 
 @Data
-public class PrincipalDetails implements UserDetails {
+// 매개변수를 동적으로 할당할 수 없기 때문에 principalDetails로 받기위해 OAuth2User도 상속받는다.
+public class PrincipalDetails implements UserDetails, OAuth2User {
 
     private static final long serialVersionUID = 1L;
 
     private User user;
+    private Map<String, Object> attributes;
 
     public PrincipalDetails(User user) {
+        this.user = user;
+    }
+
+    public PrincipalDetails(User user, Map<String, Object> attributes) {
         this.user = user;
     }
 
@@ -63,5 +71,17 @@ public class PrincipalDetails implements UserDetails {
     @Override
     public boolean isEnabled() { // 계정이 활성화 되어있는가?
         return true;
+    }
+
+    // OAuth2User method ======================================
+    @Override
+    public Map<String, Object> getAttributes() {
+        return attributes; // {id:121212, name:쌀, email:ssar@nate.com}
+    }
+
+    @Override
+    public String getName() {
+        // TODO Auto-generated method stub
+        return (String) attributes.get("name");
     }
 }

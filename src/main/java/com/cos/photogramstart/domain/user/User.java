@@ -39,7 +39,8 @@ public class User {
     // 유효성 검사(전처리 후처리 개념)
     // length : DB까지 가서 확인할 필요 없기 때문에 서버 앞단에서 전처리 된다.
     // unique : DB를 통해서 확인할 수 있는 것이기 때문에 후처리 된다.
-    @Column(unique = true, length = 20) // username이 중복허용을 하지 않게 하는 어노테이션
+    // OAuth2 로그인을 위한 column 사이즈 늘리기. (length = 20->100)
+    @Column(unique = true, length = 100) // username이 중복허용을 하지 않게 하는 어노테이션
     private String username;
 
     @Column(nullable = false)

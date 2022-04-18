@@ -1,5 +1,7 @@
 package com.cos.photogramstart.config;
 
+import com.cos.photogramstart.config.oauth.OAuth2DetailsService;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -7,11 +9,16 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import lombok.RequiredArgsConstructor;
+
 // Security 세팅 : 페이지 접근 권한 설정
 
+@RequiredArgsConstructor
 @EnableWebSecurity // 해당 파일로 시큐리티를 활성화 시키는 어노테이션
 @Configuration // IoC컨테이너로 넣어주는 어노테이션
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private final OAuth2DetailsService oAuth2DetailsService;
 
     @Bean // SecurityConfig가 IoC컨테이너에 등록될 때, Bean 어노테이션을 읽어서
     // BCryptPasswordEncoder를 return해서 IoC컨테이너에 담아두는 기술.
@@ -39,7 +46,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/auth/signin")// 로그인후 페이지 // POST요청 경로
                 // .failureHandler(null)
                 // .successHandler(null)
-                .defaultSuccessUrl("/"); // 로그인이 정상적으로 되면 메인페이지("/")로 이동한다.
+                .defaultSuccessUrl("/")// 로그인이 정상적으로 되면 메인페이지("/")로 이동한다.
+                // .usernameParameter("uid")
+                .and()
+                .oauth2Login() // form로그인 외에도 oauth로그인도 허용한다.
+                .userInfoEndpoint() // oauth2 로그인을 진행하면 최종 응답으로 회원정보를 바로 받겠다.
+                .userService(oAuth2DetailsService);
 
     }
 

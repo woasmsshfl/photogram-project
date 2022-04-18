@@ -24,31 +24,35 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Entity
-// 한 테이블에 여러개의 유니크 설정을 해주기 위한 어노테이션
-@Table(uniqueConstraints = {
-        @UniqueConstraint(name = "subscribe_uk", columnNames = {
-                "fromUserId",
-                "toUserId"
-        })
-})
-public class Subscribe {// 구독을 위한 중간테이블 생성
+@Table(
+		uniqueConstraints = {
+				@UniqueConstraint(
+						name="subscribe_uk",
+						columnNames = {"fromUserId", "toUserId"}
+				)
+		}
+)
+public class Subscribe {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
+	@JoinColumn(name = "fromUserId") // 이렇게 컬럼명 만들어! 니 맘대로 만들지 말고!!
+	@ManyToOne
+	private User fromUser;
+	
+	@JoinColumn(name = "toUserId")
+	@ManyToOne
+	private User toUser;
+	
+	private LocalDateTime createDate;
+	
+	@PrePersist
+	public void createDate() {
+		this.createDate = LocalDateTime.now();
+	}
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
-    @JoinColumn(name = "fromUserId") // DB에 생성 될 컬럼명 강제 지정
-    @ManyToOne
-    private User fromUser;
-
-    @JoinColumn(name = "toUserId")
-    @ManyToOne
-    private User toUser;
-
-    private LocalDateTime createDate;
-
-    @PrePersist
-    public void createDate() {
-        this.createDate = LocalDateTime.now();
-    }
 }
+
+
+

@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -32,9 +34,9 @@ public class User {
 
 	@Id // primary Key를 설정해주는 어노테이션
 	// 번호 증가 전략이 데이터베이스를 따라가게 해주는 어노테이션
-	@GeneratedValue(strategy = GenerationType.IDENTITY) 
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	// AOP : 관점지향프로그래밍
 	// 유효성 검사(전처리 후처리 개념)
 	// length : DB까지 가서 확인할 필요 없기 때문에 서버 앞단에서 전처리 된다.
@@ -42,7 +44,7 @@ public class User {
 	// OAuth2 로그인을 위한 column 사이즈 늘리기. (length = 20->100)
 	@Column(unique = true, length = 100) // username이 중복허용을 하지 않게 하는 어노테이션
 	private String username;
-	
+
 	@Column(nullable = false)
 	private String password;
 
@@ -53,28 +55,27 @@ public class User {
 
 	private String bio; // 자기 소개
 
-	@Column(nullable = false)
 	private String email;
 
 	private String phone;
 
 	private String gender;
-	
+
 	private String profileImageUrl; // 사진
 
-	private String role; // 권한
-	
+	private String role; // ADMIN, USER
+
 	// mappedBy : 연관관계의 주인이 아니기 때문에 BD에 Column을 생성하지않는다.
 	// User를 SELECT할 때 해당 User id로 등록된 iamge들을 모두 받아야한다.
 	// FetchType.LAZY = defalut 설정. image들을 안받는 설정.(getImages()함수의 image 호출시엔 가져옴)
 	// FetchType.EAGER = image들을 모두 join해서 받는다.
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	// @JsonIgnoreProperties를 안걸어주면 JPA 양방향 무한참조가 발생해서 오류가 난다.
-	@JsonIgnoreProperties({"user"}) // List<image> 내부의 user데이터를 무시하고 json파싱하기
+	@JsonIgnoreProperties({ "user" }) // List<image> 내부의 user데이터를 무시하고 json파싱하기
 	private List<Image> images; // 양방향 매핑
-	
+
 	private LocalDateTime createDate;
-	
+
 	@PrePersist // DB에 INSERT 되기 직전에 실행되어 현재시간을 입력한다.
 	public void createDate() {
 		this.createDate = LocalDateTime.now();
@@ -84,10 +85,8 @@ public class User {
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", password=" + password + ", name=" + name + ", website="
 				+ website + ", bio=" + bio + ", email=" + email + ", phone=" + phone + ", gender=" + gender
-				+ ", profileImageUrl=" + profileImageUrl + ", role=" + role +", createDate="
+				+ ", profileImageUrl=" + profileImageUrl + ", role=" + role + ", createDate="
 				+ createDate + "]";
 	}
 
-	
-	
 }

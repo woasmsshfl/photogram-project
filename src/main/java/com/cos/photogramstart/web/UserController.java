@@ -1,23 +1,32 @@
 package com.cos.photogramstart.web;
 
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import java.net.http.HttpHeaders;
 
 import com.cos.photogramstart.config.auth.PrincipalDetails;
 import com.cos.photogramstart.service.UserService;
 import com.cos.photogramstart.web.dto.user.UserProfileDto;
+
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
 
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Controller
 public class UserController {
-	
+
 	private final UserService userService;
-	
+
 	// @PathVariable은 바인딩하여 데이터를 받아올 수 있게 해주는 어노테이션이다.
 	@GetMapping("/user/{pageUserId}")
 	public String profile(@PathVariable int pageUserId, Model model,
@@ -27,7 +36,7 @@ public class UserController {
 		model.addAttribute("dto", dto);
 		return "user/profile";
 	}
-	
+
 	// 세션 저장 경로와 확인
 	// 1. 클라이언트가 Post방식으로 서버에 /auth/signin 요청을 하면
 	// 서버앞에서 보호해주고있는 시큐리티가 요청을 낚아챈다.
@@ -45,8 +54,8 @@ public class UserController {
 	// @AuthenticationPrincipal 덕분에 principalDetails를 바로 찾아주었다
 	@GetMapping("/user/{id}/update")
 	public String updateForm(@PathVariable int id,
-	@AuthenticationPrincipal PrincipalDetails principalDetails) {
-		
+			@AuthenticationPrincipal PrincipalDetails principalDetails) {
+
 		// 1. 어노테이션을 이용하여 바로 찾은 유저 정보(**추천**)
 		// System.out.println("어노테이션으로 찾은 유저 정보 : " + principalDetails.getUser());
 
@@ -58,7 +67,7 @@ public class UserController {
 		// 모델에 principalDetails가 가지고 있는 유저정보 담기
 		// principal : 접근주체. 인증된 사용자의 오브젝트 명으로 주로 쓰인다.
 		// model.addAttribute("principal", principalDetails.getUser());
-	
+
 		return "user/update";
 	}
 

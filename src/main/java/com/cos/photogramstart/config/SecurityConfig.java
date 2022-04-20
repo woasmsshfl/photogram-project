@@ -13,17 +13,17 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @EnableWebSecurity // 해당 파일로 시큐리티를 활성화 시키는 어노테이션
-@Configuration // IoC컨테이너로 넣어주는 어노테이션 
-public class SecurityConfig extends WebSecurityConfigurerAdapter{
+@Configuration // IoC컨테이너로 넣어주는 어노테이션
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	private final OAuth2DetailsService oAuth2DetailsService;
-	
+
 	@Bean // SecurityConfig가 IoC컨테이너에 등록될 때, Bean 어노테이션을 읽어서
 	// BCryptPasswordEncoder를 return해서 IoC컨테이너에 담아두는 기술.
 	public BCryptPasswordEncoder encode() {
 		return new BCryptPasswordEncoder();
 	}
-	
+
 	// 인증 설정하는 메서드
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -35,7 +35,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
 		http.authorizeRequests() // 이 주소경로로 요청이 들어오면
 				.antMatchers("/", "/user/**", "/image/**", "/subscribe/**", "/comment/**", "/api/**")
-				.authenticated() // 인증이 필요하고
+				.access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+				.antMatchers("/admin/**")
+				.access("hasRole('ROLE_ADMIN')")
 				.anyRequest() // 인증이 필요없는 모든 요청을
 				.permitAll() // 허용한다.
 				.and() // 그리고
@@ -52,6 +54,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 				.userInfoEndpoint() // oauth2 로그인을 진행하면 최종 응답으로 회원정보를 바로 받겠다.
 				.userService(oAuth2DetailsService);
 	}
-	
 
 }

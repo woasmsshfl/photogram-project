@@ -45,9 +45,28 @@
                             <div class="login__facebook">
                                 <button onclick="javascript:location.href='/oauth2/authorization/facebook'">
                                     <i class="fab fa-facebook-square"></i>
-                                    <span>Facebook으로 로그인</span>
+                                    <span>Facebook계정으로 로그인</span>
                                 </button>
                             </div>
+
+                            <div class="login__google">
+                                <button onclick="javascript:location.href='/oauth2/authorization/google'">
+                                    <img src="/images/googleicon.png" class="OAuth2_icon_size">
+                                    <span>Google계정으로 로그인</span>
+                                </button>
+                            </div>
+
+                            <!-- <div class="login__kakao">
+                                <button onclick="javascript:location.href='/oauth2/authorization/kakao'">
+                                    <img src="/images/kakaoicon.png" class="OAuth2_icon_size">
+                                    <span>Kakao계정으로 로그인</span>
+                                </button>
+                            </div> -->
+
+                            <!-- <a href="https://kauth.kakao.com/oauth/authorize?client_id=a432c90ec0018e07716a7fa15a190ae3&redirect_uri=http://localhost:8080/auth/kakao/callback&response_type=code">
+                                <img src="/image/kakao_login_button.png">
+                            </a> -->
+
                             <!-- Oauth 소셜로그인end -->
                         </div>
 

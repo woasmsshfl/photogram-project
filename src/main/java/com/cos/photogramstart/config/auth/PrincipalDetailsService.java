@@ -18,22 +18,22 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Service // IoC
-public class PrincipalDetailsService implements UserDetailsService{
+public class PrincipalDetailsService implements UserDetailsService {
 
 	private final UserRepository userRepository;
-	
-	
+
 	// 1. loadUserByUsername가 username만 받아도 내부 시큐리티가 알아서 판단하여 처리해준다.
 	// 따라서 UserDetails 타입으로 리턴만 잘 해주면 된다.
 	// 2. 리턴이 잘 되면 자동으로 UserDetails 타입을 세션을 만들어준다.
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		
+	public UserDetails loadUserByUsername(String username)
+	throws UsernameNotFoundException {
+
 		User userEntity = userRepository.findByUsername(username);
-		
-		if(userEntity == null) {
+
+		if (userEntity == null) {
 			return null;
-		}else {
+		} else {
 			return new PrincipalDetails(userEntity);
 		}
 	}

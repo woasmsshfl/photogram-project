@@ -4,28 +4,31 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 
+import com.cos.photogramstart.domain.user.User;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
-import com.cos.photogramstart.domain.user.User;
-
 import lombok.Data;
 
 @Data
-public class PrincipalDetails implements UserDetails, OAuth2User{
-	
+public class PrincipalDetails implements UserDetails, OAuth2User {
+
 	private static final long serialVersionUID = 1L;
-	
+
 	private User user;
 	private Map<String, Object> attributes;
-	
+	private boolean oauth = false;
+
 	public PrincipalDetails(User user) {
 		this.user = user;
 	}
-	
+
 	public PrincipalDetails(User user, Map<String, Object> attributes) {
 		this.user = user;
+		this.attributes = attributes;
+		this.oauth = true;
 	}
 
 	// 권한을 가져오는 메서드
@@ -58,7 +61,7 @@ public class PrincipalDetails implements UserDetails, OAuth2User{
 		return true;
 	}
 
-	@Override 
+	@Override
 	public boolean isAccountNonLocked() { // 계정이 잠기지 않았는가?
 		return true;
 	}
@@ -76,7 +79,7 @@ public class PrincipalDetails implements UserDetails, OAuth2User{
 	// OAuth2User method ======================================
 	@Override
 	public Map<String, Object> getAttributes() {
-		return attributes;  // {id:121212, name:쌀, email:ssar@nate.com}
+		return attributes; // {id:121212, name:쌀, email:ssar@nate.com}
 	}
 
 	@Override

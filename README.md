@@ -1,9 +1,11 @@
-# 포토그램 - 인스타그램 클론 코딩
+# PHOTOGRAM PROJECT
+- instagram clone codding 하기
 
 ### 프론트엔드 기초 세팅 
  <a href="https://github.com/codingspecialist/EaszUp-Springboot-Photogram-Start"> GITHUB </a>
+ - 해당 링크에서 git clone 하여 프론드엔드 기반 데이터를 받았습니다.
 
-### 의존성
+### 의존성(Plug-in)
 
 - Spring Boot Version
 ```xml
@@ -120,6 +122,13 @@
       <version>2.4.5</version>
   </dependency>
 ```
+
+### OAuth2 개발자 센터
+
+<a href="https://developers.facebook.com/" title="페이스북 개발자 센터로 이동" target="_blank">페이스북 개발자 센터</a>
+<a href="https://console.cloud.google.com/getting-started?hl=ko" title="구글 개발자 센터로 이동" target="_blank">구글 개발자 센터</a>
+<a href="https://developers.kakao.com/" title="카카오 개발자 센터로 이동" target="_blank">카카오 개발자 센터</a>
+<a href="https://developers.naver.com/main/" title="네이버 개발자 센터로 이동" target="_blank">네이버 개발자 센터</a>
 
 ### 데이터베이스
 

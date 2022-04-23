@@ -1,6 +1,5 @@
 package com.cos.photogramstart.service;
 
-import com.cos.photogramstart.domain.user.RoleType;
 import com.cos.photogramstart.domain.user.User;
 import com.cos.photogramstart.domain.user.UserRepository;
 

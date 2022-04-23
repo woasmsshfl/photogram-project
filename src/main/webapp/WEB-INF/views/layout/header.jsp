@@ -51,13 +51,18 @@
                         <nav class="navi">
                             <ul class="navi-list">
                                 <li class="navi-item">
-                                    <a href="/">
+                                    <a href="/image/story/all">
                                         <i class="fas fa-home"></i>
                                     </a>
                                 </li>
                                 <li class="navi-item">
+                                    <a href="/">
+                                        <i class="fas fa-solid fa-heart"></i>
+                                    </a>
+                                </li>
+                                <li class="navi-item">
                                     <a href="/image/popular">
-                                        <i class="far fa-compass"></i>
+                                        <i class="fas fa-solid fa-fire"></i>
                                     </a>
                                 </li>
                                 <li class="navi-item">

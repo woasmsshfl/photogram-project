@@ -265,6 +265,21 @@ span {
 } */
 
 
+/* A태그 꾸미기 */
+
+.my_atag_costom {
+    font-size: large;
+    font-weight: 700;
+    text-decoration-line: none;
+    color: gray;
+}
+
+.my_atag_costom:hover {
+    text-decoration-line: none;
+    color: black;
+}
+
+
 /*가입페이지로 이동*/
 
 .login__register {

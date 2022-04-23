@@ -1,8 +1,5 @@
 package com.cos.photogramstart.web.dto.auth;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
-
 import com.cos.photogramstart.domain.user.User;
 
 import lombok.Data;
@@ -11,8 +8,6 @@ import lombok.Data;
 public class SignupDto {
 	// https://bamdule.tistory.com/35 (@Valid 어노테이션 종류)
 
-// 최소값과 최대값을 지정해주는 어노테이션
- // 공란을 허용하지 않는 어노테이션
 	private String username;
 
 	private String password;

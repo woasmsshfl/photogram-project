@@ -10,12 +10,13 @@ import org.springframework.data.repository.query.Param;
 
 public interface ImageRepository extends JpaRepository<Image, Integer> {
 
-	// 게시물
+	// 구독중인 게시물
 	@Query(value = "SELECT * FROM image WHERE userId IN (SELECT toUserId FROM subscribe WHERE fromUserId = :principalId) ORDER BY id DESC", nativeQuery = true)
 	Page<Image> mStory(@Param("principalId") int principalId, Pageable pageable);
 	
-
-	// 인기게시물
+	// 인기 게시물
 	@Query(value = "SELECT i.* FROM image i INNER JOIN (SELECT imageId, COUNT(imageId) likeCount FROM likes GROUP BY imageId) c ON i.id = c.imageId ORDER BY likeCount DESC", nativeQuery = true)
 	List<Image> mPopular();
+
+
 }

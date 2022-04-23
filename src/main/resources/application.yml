@@ -65,7 +65,7 @@ spring:
             - profile_nickname
             - profile_image
             authorization-grant-type: authorization_code
-            redirect-uri: http://localhost:8080/auth/kakao/callback
+            redirect-uri: http://localhost:8080/login/oauth2/code/kakao
             client-name: Kakao
             client-authentication-method: POST
 

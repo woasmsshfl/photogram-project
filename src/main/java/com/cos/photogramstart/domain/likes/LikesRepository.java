@@ -7,11 +7,12 @@ import org.springframework.data.repository.query.Param;
 
 public interface LikesRepository extends JpaRepository<Likes, Integer> {
 
+	// 좋아요
 	@Modifying
 	@Query(value = "INSERT INTO likes(imageId, userId, createDate) VALUES(:imageId, :principalId, now())", nativeQuery = true)
 	int mLikes(@Param("imageId") int imageId, @Param("principalId") int principalId);
-	// 여기도 오류 발견.  @Param이 Repository 마다 없었다.
-
+	
+	// 좋아요 취소
 	@Modifying
 	@Query(value = "DELETE FROM likes WHERE imageId = :imageId AND userId = :principalId", nativeQuery = true)
 	int mUnLikes(@Param("imageId") int imageId, @Param("principalId") int principalId);

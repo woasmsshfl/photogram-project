@@ -11,18 +11,16 @@ import lombok.Data;
 public class SignupDto {
 	// https://bamdule.tistory.com/35 (@Valid 어노테이션 종류)
 
-	@Size(min = 3, max = 20) // 최소값과 최대값을 지정해주는 어노테이션
-	@NotBlank // 공란을 허용하지 않는 어노테이션
+// 최소값과 최대값을 지정해주는 어노테이션
+ // 공란을 허용하지 않는 어노테이션
 	private String username;
 
-	@NotBlank
 	private String password;
 
-	@NotBlank
 	private String email;
 
-	@NotBlank
 	private String name;
+
 
 	// User.java에서 걸어준 Builder 어노테이션을 적용하기 위한 함수
 	public User toEntity() { // 들어간 Dto의 데이터를 User로 리턴한다.

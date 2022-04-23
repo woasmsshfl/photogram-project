@@ -1,6 +1,5 @@
 package com.cos.photogramstart.web.api;
 
-import java.net.http.HttpHeaders;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -13,20 +12,14 @@ import com.cos.photogramstart.web.dto.CMRespDto;
 import com.cos.photogramstart.web.dto.subscribe.SubscribeDto;
 import com.cos.photogramstart.web.dto.user.UserUpdateDto;
 
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.RequiredArgsConstructor;
@@ -37,6 +30,7 @@ public class UserApiController {
 
 	private final UserService userService;
 	private final SubscribeService subscribeService;
+
 
 	@PutMapping("/api/user/{principalId}/profileImageUrl")
 	public ResponseEntity<?> profileImageUrlUpdate(@PathVariable int principalId,

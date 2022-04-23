@@ -40,4 +40,19 @@
         <br/><br/>
 
         <script src="/js/upload.js"></script>
+
+        <script>
+            $('#summernote').summernote({
+                placeholder: '사진 설명',
+                tabsize: 2,
+                height: 120,
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['insert', ['link', 'video']],
+                ]
+            });
+        </script>
         <%@ include file="../layout/footer.jsp" %>

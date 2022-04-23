@@ -60,7 +60,7 @@ function getSubscribeModalItem(u) {
 
     let item = `<div class="subscribe__item" id="subscribeModalItem-${u.id}">
 	<div class="subscribe__img">
-		<img src="/upload/${u.profileImageUrl}" onerror="this.src='/images/person.jpeg'" />
+		<img src="/upload/${u.profileImageUrl}" onerror="this.src='//images/amugae.jpg'" />
 	</div>
 	<div class="subscribe__text">
 		<h2>${u.username}</h2>

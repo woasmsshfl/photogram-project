@@ -9,6 +9,7 @@
         <title>Photogram</title>
         <link rel="stylesheet" href="/css/style.css">
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+        <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
     </head>
 
     <body>
@@ -29,7 +30,7 @@
                             <form class="login__input" action="/auth/signin" method="post">
                                 <input type="text" name="username" placeholder="유저네임" required="required" />
                                 <input type="password" name="password" placeholder="비밀번호" required="required" />
-                                <button>로그인</button>
+                                <button>Photogram 계정으로 로그인</button>
                             </form>
                             <!--로그인 인풋end-->
 
@@ -41,31 +42,35 @@
                             </div>
                             <!-- 또는end -->
 
-                            <!-- Oauth 소셜로그인 -->
+                            <!-- Oauth2 소셜로그인 -->
                             <div class="login__facebook">
                                 <button onclick="javascript:location.href='/oauth2/authorization/facebook'">
                                     <i class="fab fa-facebook-square"></i>
-                                    <span>Facebook계정으로 로그인</span>
+                                    <span>Facebook 계정으로 로그인</span>
                                 </button>
                             </div>
 
                             <div class="login__google">
                                 <button onclick="javascript:location.href='/oauth2/authorization/google'">
                                     <img src="/images/googleicon.png" class="OAuth2_icon_size">
-                                    <span>Google계정으로 로그인</span>
+                                    <span>Google 계정으로 로그인</span>
                                 </button>
                             </div>
 
-                            <!-- <div class="login__kakao">
+                            <div class="login__kakao">
                                 <button onclick="javascript:location.href='/oauth2/authorization/kakao'">
                                     <img src="/images/kakaoicon.png" class="OAuth2_icon_size">
-                                    <span>Kakao계정으로 로그인</span>
+                                    <span>Kakao 계정으로 로그인</span>
                                 </button>
-                            </div> -->
+                            </div>
 
-                            <!-- <a href="https://kauth.kakao.com/oauth/authorize?client_id=a432c90ec0018e07716a7fa15a190ae3&redirect_uri=http://localhost:8080/auth/kakao/callback&response_type=code">
-                                <img src="/image/kakao_login_button.png">
-                            </a> -->
+                            <div class="login__naver">
+                                <button onclick="javascript:location.href='/oauth2/authorization/naver'">
+                                    <img src="/images/navericon.jpg" class="OAuth2_icon_size">
+                                    <span>Naver 계정으로 로그인</span>
+                                </button>
+                            </div>
+
 
                             <!-- Oauth 소셜로그인end -->
                         </div>
@@ -82,5 +87,8 @@
 
         </div>
     </body>
+
+    <script>
+    </script>
 
     </html>

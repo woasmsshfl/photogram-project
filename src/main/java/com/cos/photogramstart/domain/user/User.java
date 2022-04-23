@@ -1,5 +1,6 @@
 package com.cos.photogramstart.domain.user;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -30,7 +31,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor // 빈 생성자를 생성해주는 어노테이션
 @Data // GETTER, SETTER 를 생성해주는 어노테이션
 @Entity // DB에 TABLE 생성해주는 어노테이션
-public class User {
+public class User{
 
 	@Id // primary Key를 설정해주는 어노테이션
 	// 번호 증가 전략이 데이터베이스를 따라가게 해주는 어노테이션
@@ -45,7 +46,7 @@ public class User {
 	@Column(unique = true, length = 100) // username이 중복허용을 하지 않게 하는 어노테이션
 	private String username;
 
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private String password;
 
 	@Column(nullable = false)
@@ -64,6 +65,9 @@ public class User {
 	private String profileImageUrl; // 사진
 
 	private String role; // ADMIN, USER
+
+	// @Enumerated(EnumType.STRING)
+	// private RoleType role; // ADMIN, USER
 
 	// mappedBy : 연관관계의 주인이 아니기 때문에 BD에 Column을 생성하지않는다.
 	// User를 SELECT할 때 해당 User id로 등록된 iamge들을 모두 받아야한다.

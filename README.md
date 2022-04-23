@@ -2,12 +2,17 @@
 - instagram clone codding 하기
 
 ### 프론트엔드 기초 세팅 
- <a href="https://github.com/codingspecialist/EaszUp-Springboot-Photogram-Start"> GITHUB </a>
- - 해당 링크에서 git clone 하여 프론드엔드 기반 데이터를 받았습니다.
+
+ <a href="https://github.com/codingspecialist/EaszUp-Springboot-Photogram-Start"> GITHUB로 가기 </a>
+
+- 위 링크에서 git clone 하여 프론드엔드 기반 데이터를 받았습니다.
+- 참고 : <https://github.com/codingspecialist>
+- 참고2 : <https://easyupclass.e-itwill.com/course/course_view.jsp?id=27&rtype=0&ch=course>
 
 ### 의존성(Plug-in)
 
 - Spring Boot Version
+
 ```xml
  <parent>
   <groupId>org.springframework.boot</groupId>
@@ -87,6 +92,7 @@
 ```
 
 - Spring Validation
+
 ```xml
 <dependency>
     <groupId>org.springframework.boot</groupId>
@@ -113,7 +119,7 @@
   </dependency>
 ```
 
--AOP
+- AOP
 
 ```xml
   <dependency>
@@ -123,14 +129,24 @@
   </dependency>
 ```
 
+### 태그라이브러리
+
+```jsp
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+```
+
 ### OAuth2 개발자 센터
 
-<a href="https://developers.facebook.com/" title="페이스북 개발자 센터로 이동" target="_blank">페이스북 개발자 센터</a>
-<a href="https://console.cloud.google.com/getting-started?hl=ko" title="구글 개발자 센터로 이동" target="_blank">구글 개발자 센터</a>
-<a href="https://developers.kakao.com/" title="카카오 개발자 센터로 이동" target="_blank">카카오 개발자 센터</a>
-<a href="https://developers.naver.com/main/" title="네이버 개발자 센터로 이동" target="_blank">네이버 개발자 센터</a>
+<a href="https://developers.facebook.com/" title="페이스북 개발자 센터로 이동" target="_blank"> - 페이스북 개발자 센터로 이동</a>
+<br/>
+<a href="https://console.cloud.google.com/getting-started?hl=ko" title="구글 개발자 센터로 이동" target="_blank"> - 구글 개발자 센터로 이동</a>
+<br/>
+<a href="https://developers.kakao.com/" title="카카오 개발자 센터로 이동" target="_blank"> - 카카오 개발자 센터로 이동</a>
+<br/>
+<a href="https://developers.naver.com/main/" title="네이버 개발자 센터로 이동" target="_blank"> - 네이버 개발자 센터로 이동</a>
 
-### 데이터베이스
+### 데이터베이스(Maria DB 10.6ver)
 
 ```sql
 -- 유저 생성, 권한 부여, 데이터베이스 생성 쿼리
@@ -248,9 +264,4 @@ file:
   path: C:/workspace/springbootwork/upload/
 ```
 
-### 태그라이브러리
 
-```jsp
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
-```

@@ -51,13 +51,8 @@
                         <nav class="navi">
                             <ul class="navi-list">
                                 <li class="navi-item">
-                                    <a href="/image/story/all">
-                                        <i class="fas fa-home"></i>
-                                    </a>
-                                </li>
-                                <li class="navi-item">
                                     <a href="/">
-                                        <i class="fas fa-solid fa-heart"></i>
+                                        <i class="fas fa-home"></i>
                                     </a>
                                 </li>
                                 <li class="navi-item">

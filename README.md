@@ -4,13 +4,13 @@
 
 ### 프론트엔드 기초 세팅 
 
-```html
+
  <a href="https://github.com/codingspecialist/EaszUp-Springboot-Photogram-Start"> GITHUB로 가기 </a>
 
 - 위 링크에서 git clone 하여 프론드엔드 기반 데이터를 받았습니다.
-- 참고 : https://github.com/codingspecialist
-- 참고2 : https://easyupclass.e-itwill.com/course/course_view.jsp?id=27&rtype=0&ch=course
-```
+- 코드 참고 : https://github.com/codingspecialist
+- 영상 참고 : https://easyupclass.e-itwill.com/course/course_view.jsp?id=27&rtype=0&ch=course
+
 ***
 ### 의존성(Plug-in)
 
@@ -141,7 +141,7 @@
 ***
 ### OAuth2 개발자 센터
 
-``` html
+
 <a href="https://developers.facebook.com/" title="페이스북 개발자 센터로 이동" target="_blank"> - 페이스북 개발자 센터로 이동</a>
 <br/>
 <a href="https://console.cloud.google.com/getting-started?hl=ko" title="구글 개발자 센터로 이동" target="_blank"> - 구글 개발자 센터로 이동</a>
@@ -149,7 +149,7 @@
 <a href="https://developers.kakao.com/" title="카카오 개발자 센터로 이동" target="_blank"> - 카카오 개발자 센터로 이동</a>
 <br/>
 <a href="https://developers.naver.com/main/" title="네이버 개발자 센터로 이동" target="_blank"> - 네이버 개발자 센터로 이동</a>
-```
+
 ***
 ### 데이터베이스(Maria DB 10.6ver)
 
@@ -273,35 +273,51 @@ file:
 ### 기능구현
 
 - 회원가입
+
 ![회원가입](https://user-images.githubusercontent.com/97711667/164967227-bf6b031a-a144-4057-9d21-a8deee30d878.gif)
+
 - 로그인
 ![로그인](https://user-images.githubusercontent.com/97711667/164967221-71be9e4d-34cd-4529-a452-3813721ad5be.gif)
+
 - OAuth2 페이스북 로그인
 ![페이스북로그인](https://user-images.githubusercontent.com/97711667/164967226-9d012efc-ee02-4b8a-a16c-b943158a4f10.gif)
+
 - OAuth2 구글 로그인
 ![구글로그인](https://user-images.githubusercontent.com/97711667/164967229-cada9bf9-0f8f-4430-8886-7460f90c0597.gif)
+
 - OAuth2 카카오 로그인
 ![카카오로그인](https://user-images.githubusercontent.com/97711667/164967224-ed054bd4-e48b-4cf4-9e4a-d14fb71a0ba5.gif)
+
 - OAuth2 네이버 로그인
 ![네이버로그인](https://user-images.githubusercontent.com/97711667/164967217-2e9c3734-5979-4dbb-870d-38cd92ee3ffe.gif)
+
 - 로그아웃
 ![로그아웃](https://user-images.githubusercontent.com/97711667/164967259-ba9c78db-25aa-4003-aefc-2daeee445637.gif)
+
 - 프로필 사진 변경
 ![프로필사진변경](https://user-images.githubusercontent.com/97711667/164967256-905a0a8c-7d87-4f3e-9172-841d149770c6.gif)
+
 - 회원정보 변경
 ![회원정보변경](https://user-images.githubusercontent.com/97711667/164967257-6b569b56-49d1-45db-b1fa-88b93b039175.gif)
+
 - 사진 올리기
 ![사진올리기](https://user-images.githubusercontent.com/97711667/164967261-7ebefdeb-b650-4a15-81c9-94d4da924393.gif)
+
 - 구독하기
 ![구독기능](https://user-images.githubusercontent.com/97711667/164967313-95f7a57d-2031-43ee-b005-8aacc0614b65.gif)
+
 - 댓글 쓰기
 ![댓글쓰기](https://user-images.githubusercontent.com/97711667/164967300-479cca08-8ef6-4650-a28c-aabf0de1430d.gif)
+
 - 댓글 삭제
 ![댓글삭제](https://user-images.githubusercontent.com/97711667/164967299-ee194410-a77d-4456-abe3-8e4bedb31898.gif)
+
 - 사진 좋아요
 ![좋아요](https://user-images.githubusercontent.com/97711667/164967695-ca5b4935-c14e-464f-8f75-a75198eab7be.gif)
+
 - 스크롤 페이징
 ![스크롤페이징](https://user-images.githubusercontent.com/97711667/164967698-5724439b-db17-430b-8f27-962186eda201.gif)
+
 - 인기 페이지
 ![인기페이지](https://user-images.githubusercontent.com/97711667/164967349-7b3f4750-4bd6-4245-a182-45c199ba60bf.gif)
 

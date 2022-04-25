@@ -65,7 +65,7 @@ spring:
             - profile_nickname
             - profile_image
             authorization-grant-type: authorization_code
-            redirect-uri: http://15.164.98.163:8080/login/oauth2/code/kakao
+            redirect-uri: http://localhost:8080/login/oauth2/code/kakao
             client-name: Kakao
             client-authentication-method: POST
 
@@ -77,7 +77,7 @@ spring:
             - email
             - name
             authorization-grant-type: authorization_code
-            redirect-uri: http://15.164.98.163:8080/login/oauth2/code/naver
+            redirect-uri: http://localhost:8080/login/oauth2/code/naver
             client-name: Naver
 
         provider:
